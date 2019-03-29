@@ -2,23 +2,19 @@ import axios from "axios";
 
 const API_ROOT = `https://pokeapi.co/api/v2`;
 
-const responseBody = response => response.data;
-const results = response => response.results;
+const responseResults = response => response.data.results;
 
 const Pokemons = {
-  get: id => axios.get(`${API_ROOT}/pokemon/${id}`).then(responseBody),
-  collection: (page, limit) =>
+  fetchPokemons: () =>
     axios
       .request({
-        method: `GET`,
-        url: `${API_ROOT}/pokemon`,
+        url: `${API_ROOT}/pokemon/`,
         params: {
-          limit,
-          offset: page * limit,
+          offset: 0,
+          limit: Number.MAX_SAFE_INTEGER,
         },
       })
-      .then(responseBody)
-      .then(results),
+      .then(responseResults),
 };
 
 export default {
