@@ -31,7 +31,7 @@ export class PokemonsStore {
   @action nextPage() {
     this.currentPageIndex = Math.min(
       this.currentPageIndex + 1,
-      this.paginated.length
+      this.paginated.length - 1
     );
   }
 
