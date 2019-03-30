@@ -1,13 +1,16 @@
 import { Provider } from "mobx-react";
+import { MobxRouter, startRouter } from "mobx-router";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "./App";
-import pokemonStore from "./stores/pokemonsStore";
+import store from "./stores";
+import views from "./views";
+
+startRouter(views, store);
 
 ReactDOM.render(
-  <Provider pokemonStore={pokemonStore}>
-    <App />
+  <Provider store={store}>
+    <MobxRouter />
   </Provider>,
   document.getElementById("root")
 );

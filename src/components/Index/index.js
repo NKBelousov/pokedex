@@ -1,9 +1,11 @@
 import { Button, CssBaseline, withStyles } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
+import { Link } from "mobx-router";
 import React, { Component } from "react";
 
-import SearchAppBar from "./components/SearchAppBar";
-import PokemonList from "./components/PokemonList";
+import SearchAppBar from "./../SearchAppBar";
+import PokemonList from "./../PokemonList";
+import views from "./../../views";
 
 const styles = {
   buttons: {
@@ -13,9 +15,9 @@ const styles = {
   },
 };
 
-@inject("pokemonStore")
+@inject("store")
 @observer
-class App extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
 
@@ -24,20 +26,20 @@ class App extends Component {
     this.previousPage = this.previousPage.bind(this);
   }
   componentDidMount() {
-    this.props.pokemonStore.fetchPokemons();
+    this.props.store.pokemonsStore.fetchPokemons();
   }
   previousPage() {
-    this.props.pokemonStore.previousPage();
+    this.props.store.pokemonsStore.previousPage();
   }
   nextPage() {
-    this.props.pokemonStore.nextPage();
+    this.props.store.pokemonsStore.nextPage();
   }
   onSearchChange(event) {
     const { value } = event.target;
-    this.props.pokemonStore.setSearch(value);
+    this.props.store.pokemonsStore.setSearch(value);
   }
   renderList() {
-    const items = this.props.pokemonStore.currentPage;
+    const items = this.props.store.pokemonsStore.currentPage;
     return <PokemonList items={items} />;
   }
   render() {
@@ -48,9 +50,10 @@ class App extends Component {
         <SearchAppBar
           key="appbar"
           onChange={this.onSearchChange}
-          value={this.props.pokemonStore.search}
+          value={this.props.store.pokemonsStore.search}
         />
         <div className={classes.buttons}>
+          <Link to={views.profile}>test</Link>
           <Button color="primary" onClick={this.previousPage}>
             Previous Page
           </Button>
@@ -65,4 +68,4 @@ class App extends Component {
   }
 }
 
-export default withStyles(styles)(App);
+export default withStyles(styles)(Index);
