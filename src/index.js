@@ -1,6 +1,6 @@
 import { CssBaseline } from "@material-ui/core";
-import { Provider } from "mobx-react";
 import { MobxRouter, startRouter } from "mobx-router";
+import { Provider } from "mobx-react";
 import React from "react";
 import ReactDOM from "react-dom";
 

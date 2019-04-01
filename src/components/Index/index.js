@@ -1,6 +1,5 @@
 import { Button, withStyles } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
-import { Link } from "mobx-router";
 import React, { Component } from "react";
 
 import SearchAppBar from "./../SearchAppBar";
@@ -23,6 +22,7 @@ class Index extends Component {
 
     this.nextPage = this.nextPage.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
+    this.openProfile = this.openProfile.bind(this);
     this.previousPage = this.previousPage.bind(this);
   }
   componentDidMount() {
@@ -38,9 +38,12 @@ class Index extends Component {
     const { value } = event.target;
     this.props.store.pokemonsStore.setSearch(value);
   }
+  openProfile(name) {
+    this.props.store.router.goTo(views.profile, { name });
+  }
   renderList() {
     const items = this.props.store.pokemonsStore.currentPage;
-    return <PokemonList items={items} />;
+    return <PokemonList items={items} navigate={this.openProfile} />;
   }
   render() {
     const { classes } = this.props;
@@ -52,7 +55,6 @@ class Index extends Component {
           value={this.props.store.pokemonsStore.search}
         />
         <div className={classes.buttons}>
-          <Link to={views.profile}>test</Link>
           <Button color="primary" onClick={this.previousPage}>
             Previous Page
           </Button>
