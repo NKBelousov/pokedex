@@ -1,3 +1,4 @@
+import { CssBaseline } from "@material-ui/core";
 import { Provider } from "mobx-react";
 import { MobxRouter, startRouter } from "mobx-router";
 import React from "react";
@@ -9,8 +10,11 @@ import views from "./views";
 startRouter(views, store);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <MobxRouter />
-  </Provider>,
+  <>
+    <CssBaseline />
+    <Provider store={store}>
+      <MobxRouter />
+    </Provider>
+  </>,
   document.getElementById("root")
 );

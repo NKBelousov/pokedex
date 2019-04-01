@@ -1,4 +1,4 @@
-import { Button, CssBaseline, withStyles } from "@material-ui/core";
+import { Button, withStyles } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import { Link } from "mobx-router";
 import React, { Component } from "react";
@@ -46,7 +46,6 @@ class Index extends Component {
     const { classes } = this.props;
     return (
       <>
-        <CssBaseline />
         <SearchAppBar
           key="appbar"
           onChange={this.onSearchChange}
