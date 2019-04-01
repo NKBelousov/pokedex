@@ -8,6 +8,9 @@ const POKEMON_MOCK = {
   base_experience: 0,
   moves: [],
   name: "charmeleon",
+  sprites: {
+    back_default: "",
+  },
   stats: [],
   types: [],
   weight: 0,
