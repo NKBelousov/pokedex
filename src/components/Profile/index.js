@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Chip,
   IconButton,
   Toolbar,
   Typography,
@@ -13,6 +14,9 @@ import views from "./../../views";
 const IMG_SIZE = "140px";
 
 const styles = theme => ({
+  chip: {
+    margin: theme.spacing.unit / 2,
+  },
   content: {
     textAlign: "center",
     margin: "20px",
@@ -52,9 +56,36 @@ class Profile extends Component {
   return() {
     this.props.store.router.goTo(views.index);
   }
+  renderAbilties() {
+    const { classes } = this.props;
+    const items = this.getPokemon().abilities.map(ability => {
+      const {
+        ability: { name },
+      } = ability;
+      return (
+        <Chip
+          key={name}
+          label={name}
+          className={classes.chip}
+          variant="outlined"
+        />
+      );
+    });
+    if (items.length === 0) {
+      return;
+    }
+    return (
+      <>
+        <Typography align="center" variant="headline" noWrap>
+          ABILITIES:
+        </Typography>
+        <div>{items}</div>
+      </>
+    );
+  }
   render() {
     const { classes } = this.props;
-    const image = this.getPokemon().sprites.back_default;
+    const image = this.getPokemon().sprites.front_default;
     return (
       <>
         <AppBar position="static">
@@ -80,6 +111,7 @@ class Profile extends Component {
           <Typography align="center" variant="subtitle1" noWrap>
             Weight: {this.getPokemon().weight}
           </Typography>
+          {this.renderAbilties()}
         </div>
       </>
     );
