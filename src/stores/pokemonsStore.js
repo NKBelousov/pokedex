@@ -3,6 +3,16 @@ import { chunk } from "lodash";
 
 import agent from "../agent";
 
+const POKEMON_MOCK = {
+  abilities: [],
+  base_experience: 0,
+  moves: [],
+  name: "charmeleon",
+  stats: [],
+  types: [],
+  weight: 0,
+};
+
 export class PokemonsStore {
   @observable all = new Map();
   @observable count = 0;
@@ -22,6 +32,23 @@ export class PokemonsStore {
       });
       this.all = map;
     });
+  }
+
+  @action fetchPokemon(name) {
+    if (this.itemsWithData.has(name)) {
+      return;
+    }
+    agent.Pokemons.fetchPokemon(name).then(pokemon => {
+      this.itemsWithData.set(name, pokemon);
+    });
+  }
+
+  getPokemon(name) {
+    if (this.itemsWithData.has(name)) {
+      return this.itemsWithData.get(name);
+    } else {
+      return POKEMON_MOCK;
+    }
   }
 
   @computed get currentPage() {
