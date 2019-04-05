@@ -9,7 +9,7 @@ import {
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
 
-import views from "./../../views";
+import views from "~/views";
 
 const IMG_SIZE = "140px";
 

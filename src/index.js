@@ -4,8 +4,8 @@ import { Provider } from "mobx-react";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import store from "./stores";
-import views from "./views";
+import store from "~/stores";
+import views from "~/views";
 
 startRouter(views, store);
 

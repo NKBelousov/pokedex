@@ -1,8 +1,8 @@
 import React from "react";
 import { Route } from "mobx-router";
 
-import Index from "./components/Index";
-import Profile from "./components/Profile";
+import Index from "~/components/Index";
+import Profile from "~/components/Profile";
 
 const views = {
   index: new Route({

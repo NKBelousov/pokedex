@@ -15,6 +15,11 @@ module.exports = {
     index: path.resolve("dist/index.html"),
     open: true,
   },
+  resolve: {
+    alias: {
+      "~": path.resolve(__dirname, "src/"),
+    },
+  },
   module: {
     rules: [
       {

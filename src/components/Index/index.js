@@ -2,9 +2,9 @@ import { Button, withStyles } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
 
-import SearchAppBar from "./../SearchAppBar";
-import PokemonList from "./../PokemonList";
-import views from "./../../views";
+import SearchAppBar from "~/components/SearchAppBar";
+import PokemonList from "~/components/PokemonList";
+import views from "~/views";
 
 const styles = {
   buttons: {
