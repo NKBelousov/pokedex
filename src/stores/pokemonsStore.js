@@ -1,4 +1,4 @@
-import { action, computed, observable } from "mobx";
+import { action, autorun, computed, observable, set, toJS } from "mobx";
 import { chunk } from "lodash";
 
 import agent from "../agent";
@@ -16,12 +16,22 @@ const POKEMON_MOCK = {
   weight: 0,
 };
 
+const STORE_KEY = "store";
+
 export class PokemonsStore {
-  @observable all = new Map();
+  @observable all = {};
   @observable count = 0;
   @observable currentPageIndex = 0;
-  @observable itemsWithData = new Map();
+  @observable itemsWithData = {};
   @observable search = "";
+
+  constructor() {
+    this.load();
+
+    autorun(this.save.bind(this), {
+      delay: 1000,
+    });
+  }
 
   @action fetchPokemons() {
     if (this.count !== 0) {
@@ -29,26 +39,26 @@ export class PokemonsStore {
     }
     agent.Pokemons.fetchPokemons().then(pokemons => {
       this.count = pokemons.length;
-      const map = new Map();
+      const data = {};
       pokemons.forEach(pokemon => {
-        map.set(pokemon.name, pokemon);
+        data[pokemon.name] = pokemon;
       });
-      this.all = map;
+      this.all = data;
     });
   }
 
   @action fetchPokemon(name) {
-    if (this.itemsWithData.has(name)) {
+    if (this.itemsWithData[name]) {
       return;
     }
     agent.Pokemons.fetchPokemon(name).then(pokemon => {
-      this.itemsWithData.set(name, pokemon);
+      this.itemsWithData[name] = pokemon;
     });
   }
 
   getPokemon(name) {
-    if (this.itemsWithData.has(name)) {
-      return this.itemsWithData.get(name);
+    if (this.itemsWithData[name]) {
+      return this.itemsWithData[name];
     } else {
       return POKEMON_MOCK;
     }
@@ -79,7 +89,7 @@ export class PokemonsStore {
       return [];
     }
     const regex = new RegExp(this.search, "i");
-    const items = Array.from(this.all.values());
+    const items = Array.from(Object.values(this.all));
     return items.filter(item => regex.test(item.name));
   }
 
@@ -88,6 +98,19 @@ export class PokemonsStore {
       return chunk(this.filtered, 10);
     } else {
       return [[]];
+    }
+  }
+
+  save() {
+    const json = JSON.stringify(toJS(this));
+    localStorage.setItem(STORE_KEY, json);
+  }
+
+  load() {
+    const json = localStorage.getItem(STORE_KEY);
+    if (json) {
+      const data = JSON.parse(json);
+      set(this, data);
     }
   }
 }
