@@ -1,4 +1,4 @@
-import { Button, withStyles } from "@material-ui/core";
+import { Button, withStyles, Typography } from "@material-ui/core";
 import { inject, observer } from "mobx-react";
 import React, { Component } from "react";
 
@@ -47,6 +47,8 @@ class Index extends Component {
   }
   render() {
     const { classes } = this.props;
+    const pageIndex = this.props.store.pokemonsStore.currentPageIndex + 1;
+    const pageCount = this.props.store.pokemonsStore.paginated.length;
     return (
       <>
         <SearchAppBar
@@ -58,6 +60,10 @@ class Index extends Component {
           <Button color="primary" onClick={this.previousPage}>
             Previous Page
           </Button>
+
+          <Typography variant="h5">
+            Page {pageIndex} of {pageCount}
+          </Typography>
 
           <Button color="primary" onClick={this.nextPage}>
             Next Page
