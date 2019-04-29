@@ -1,71 +1,71 @@
-import { fade } from "@material-ui/core/styles/colorManipulator";
-import { memo } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import InputBase from "@material-ui/core/InputBase";
-import PropTypes from "prop-types";
-import React from "react";
-import SearchIcon from "@material-ui/icons/Search";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import React, { memo } from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import InputBase from '@material-ui/core/InputBase';
+import PropTypes from 'prop-types';
+
+import SearchIcon from '@material-ui/icons/Search';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: '100%',
   },
   grow: {
     flexGrow: 1,
   },
   title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
     },
   },
   search: {
-    position: "relative",
+    position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
+    '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing.unit,
-      width: "auto",
+      width: 'auto',
     },
   },
   searchIcon: {
     width: theme.spacing.unit * 9,
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   inputRoot: {
-    color: "inherit",
-    width: "100%",
+    color: 'inherit',
+    width: '100%',
   },
   inputInput: {
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
     paddingLeft: theme.spacing.unit * 10,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
       width: 120,
-      "&:focus": {
+      '&:focus': {
         width: 200,
       },
     },
   },
 });
 
-const SearchAppBar = memo(props => {
+const SearchAppBar = memo((props) => {
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -75,7 +75,8 @@ const SearchAppBar = memo(props => {
             className={classes.title}
             variant="h6"
             color="inherit"
-            noWrap>
+            noWrap
+          >
             Pokedex
           </Typography>
           <div className={classes.grow} />
@@ -101,6 +102,10 @@ const SearchAppBar = memo(props => {
 
 SearchAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
+
+SearchAppBar.displayName = 'SearchAppBar';
 
 export default withStyles(styles)(SearchAppBar);
