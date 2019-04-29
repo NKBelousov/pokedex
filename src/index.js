@@ -1,11 +1,11 @@
-import { CssBaseline } from "@material-ui/core";
-import { MobxRouter, startRouter } from "mobx-router";
-import { Provider } from "mobx-react";
-import React from "react";
-import ReactDOM from "react-dom";
+import { CssBaseline } from '@material-ui/core';
+import { MobxRouter, startRouter } from 'mobx-router';
+import { Provider } from 'mobx-react';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import store from "~/stores";
-import views from "~/views";
+import store from '~/stores';
+import views from '~/views';
 
 startRouter(views, store);
 
@@ -16,5 +16,5 @@ ReactDOM.render(
       <MobxRouter />
     </Provider>
   </>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );

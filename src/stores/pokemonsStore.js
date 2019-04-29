@@ -1,29 +1,35 @@
-import { action, autorun, computed, observable, set, toJS } from "mobx";
-import { chunk } from "lodash";
+import {
+  action, autorun, computed, observable, set, toJS,
+} from 'mobx';
+import { chunk } from 'lodash';
 
-import agent from "../agent";
+import agent from '../agent';
 
 const POKEMON_MOCK = {
   abilities: [],
   base_experience: 0,
   moves: [],
-  name: "",
+  name: '',
   sprites: {
-    front_default: "",
+    front_default: '',
   },
   stats: [],
   types: [],
   weight: 0,
 };
 
-const STORE_KEY = "store";
+const STORE_KEY = 'store';
 
 export class PokemonsStore {
   @observable all = {};
+
   @observable count = 0;
+
   @observable currentPageIndex = 0;
+
   @observable itemsWithData = {};
-  @observable search = "";
+
+  @observable search = '';
 
   constructor() {
     this.load();
@@ -37,10 +43,10 @@ export class PokemonsStore {
     if (this.count !== 0) {
       return;
     }
-    agent.Pokemons.fetchPokemons().then(pokemons => {
+    agent.Pokemons.fetchPokemons().then((pokemons) => {
       this.count = pokemons.length;
       const data = {};
-      pokemons.forEach(pokemon => {
+      pokemons.forEach((pokemon) => {
         data[pokemon.name] = pokemon;
       });
       this.all = data;
@@ -51,7 +57,7 @@ export class PokemonsStore {
     if (this.itemsWithData[name]) {
       return;
     }
-    agent.Pokemons.fetchPokemon(name).then(pokemon => {
+    agent.Pokemons.fetchPokemon(name).then((pokemon) => {
       this.itemsWithData[name] = pokemon;
     });
   }
@@ -59,9 +65,8 @@ export class PokemonsStore {
   getPokemon(name) {
     if (this.itemsWithData[name]) {
       return this.itemsWithData[name];
-    } else {
-      return POKEMON_MOCK;
     }
+    return POKEMON_MOCK;
   }
 
   @computed get currentPage() {
@@ -71,7 +76,7 @@ export class PokemonsStore {
   @action nextPage() {
     this.currentPageIndex = Math.min(
       this.currentPageIndex + 1,
-      this.paginated.length - 1
+      this.paginated.length - 1,
     );
   }
 
@@ -88,7 +93,7 @@ export class PokemonsStore {
     if (this.all.length === 0) {
       return [];
     }
-    const regex = new RegExp(this.search, "i");
+    const regex = new RegExp(this.search, 'i');
     const items = Array.from(Object.values(this.all));
     return items.filter(item => regex.test(item.name));
   }
@@ -96,9 +101,8 @@ export class PokemonsStore {
   @computed get paginated() {
     if (this.filtered.length > 0) {
       return chunk(this.filtered, 10);
-    } else {
-      return [[]];
     }
+    return [[]];
   }
 
   save() {

@@ -1,6 +1,6 @@
-import { RouterStore } from "mobx-router";
+import { RouterStore } from 'mobx-router';
 
-import pokemonsStore from "./pokemonsStore";
+import pokemonsStore from './pokemonsStore';
 
 export default {
   pokemonsStore,
