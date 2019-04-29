@@ -15,6 +15,7 @@ module.exports = {
     },
   },
   rules: {
+    "import/no-cycle": ["off"],
     "import/no-named-as-default": ["off"],
     "react/destructuring-assignment": ["off"],
     "react/forbid-prop-types": ["off"],
@@ -22,5 +23,5 @@ module.exports = {
   },
   settings: {
     "import/resolver": "webpack",
-  },  
+  },
 };
